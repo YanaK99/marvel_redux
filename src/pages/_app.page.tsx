@@ -9,7 +9,7 @@ const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
   return (
     <Shield>
       <Navigation />
-      <Container sx={{ margin: '0 auto' }}>
+      <Container sx={{ margin: '0 auto', pt: 8 }}>
         <Component {...pageProps} />
       </Container>
     </Shield>

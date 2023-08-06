@@ -4,32 +4,23 @@ module.exports = {
     es2021: true,
   },
   extends: [
-    'next',
     'eslint:recommended',
     'plugin:@typescript-eslint/recommended',
-    'plugin:react/recommended',
-    'plugin:prettier/recommended',
+    'plugin:import/recommended',
+    'plugin:import/typescript',
+    'plugin:import/errors',
+    'plugin:import/warnings',
+    'prettier',
+    'next',
   ],
-  overrides: [
-    {
-      env: {
-        node: true,
-      },
-      files: ['.eslintrc.{js,cjs}'],
-      parserOptions: {
-        sourceType: 'script',
-      },
-    },
-  ],
-  parser: '@typescript-eslint/parser',
+  overrides: [],
   parserOptions: {
-    ecmaVersion: 'latest',
-    sourceType: 'module',
+    project: './tsconfig.json',
   },
-  plugins: ['@typescript-eslint', 'react', 'prettier'],
   rules: {
-    'react/prop-types': 'off',
     'react/react-in-jsx-scope': 'off',
-    'prettier/prettier': 'error',
+    '@typescript-eslint/no-non-null-assertion': 'off',
+    '@typescript-eslint/no-non-null-asserted-optional-chain': 'off',
   },
+  ignorePatterns: ['next.config.js'],
 };

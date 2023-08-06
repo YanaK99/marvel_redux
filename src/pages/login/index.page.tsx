@@ -1,6 +1,14 @@
-import { Card, CardContent, Box } from '@mui/material';
-import Title from '@/components/Title/Title';
-import Input from '@/components/Input/Input';
+import { useContext } from 'react';
+
+import { Card, CardContent, Typography, Stack } from '@mui/material';
+
+import { SignInForm } from './components';
+
+import { SignInFormFieldsType } from '@/types/models/forms';
+
+import ModalContext from '@/context/ModalContext';
+
+import MarvelIcon from '@/assets/svg/Marvel.svg';
 
 /**
  *
@@ -8,16 +16,18 @@ import Input from '@/components/Input/Input';
  * @param root0.setIsAuthorized
  * @param root0.isAuthorized
  */
-function LoginPage() {
+const LoginPage = () => {
+  const { login } = useContext(ModalContext);
+
+  const handleSignIn = (data: SignInFormFieldsType) => {
+    if (login) {
+      login();
+    }
+    console.log('data', data);
+  };
+
   return (
-    <Box
-      sx={{
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
-        py: 8,
-      }}
-    >
+    <Stack direction="row" justifyContent="center" alignItems="center" py={8}>
       <Card sx={{ width: 400, borderRadius: 6 }}>
         <CardContent
           sx={{
@@ -27,12 +37,30 @@ function LoginPage() {
             alignItems: 'center',
           }}
         >
-          <Title />
-          <Input />
+          <Stack>
+            <MarvelIcon />
+            <Typography
+              variant="h4"
+              mb={3}
+              sx={{
+                textAlign: 'center',
+                fontWeight: 'bold',
+                fontFamily: 'Modern No. 20',
+              }}
+            >
+              Login
+            </Typography>
+            <Typography variant="body1" mb={3}>
+              Welcome to your account!
+            </Typography>
+          </Stack>
+          <Stack width="100%" maxWidth="90%">
+            <SignInForm onFormSubmit={handleSignIn} />
+          </Stack>
         </CardContent>
       </Card>
-    </Box>
+    </Stack>
   );
-}
+};
 
 export default LoginPage;
