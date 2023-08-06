@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState, ReactNode } from 'react';
 
 interface IModalContext {
   login?: () => void;
@@ -12,14 +12,8 @@ const ModalContext = createContext<IModalContext>({
   setIsAuthorized: () => {},
 });
 
-export function ModalContextProvider({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
-  const [isAuthorized, setIsAuthorized] = useState(() =>
-    Boolean(localStorage.getItem('user'))
-  );
+export function ModalContextProvider({ children }: { children: ReactNode }) {
+  const [isAuthorized, setIsAuthorized] = useState<boolean>(false);
 
   useEffect(() => {
     const user = Boolean(localStorage.getItem('user'));

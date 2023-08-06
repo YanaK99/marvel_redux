@@ -1,4 +1,5 @@
 import { AppBar, ListItemButton, List } from '@mui/material';
+import NextLink from 'next/link';
 
 import { useContext } from 'react';
 import ModalContext from '@/context/ModalContext';
@@ -29,20 +30,20 @@ function Navigation() {
   return (
     <AppBar sx={appBarStyle} position="fixed">
       <List sx={listStyle}>
-        <ListItemButton sx={itemStyle} href="/home">
+        <ListItemButton sx={itemStyle} component={NextLink} href="/home">
           MAIN
         </ListItemButton>
-        <ListItemButton sx={itemStyle} href="/characters">
+        <ListItemButton sx={itemStyle} component={NextLink} href="/characters">
           CHARACTERS
         </ListItemButton>
-        <ListItemButton sx={itemStyle} href="/register">
+        <ListItemButton sx={itemStyle} component={NextLink} href="/register">
           REGISTER
         </ListItemButton>
-        <ListItemButton sx={itemStyle} href="/login">
+        <ListItemButton sx={itemStyle} component={NextLink} href="/login">
           LOGIN
         </ListItemButton>
         {isAuthorized && (
-          <ListItemButton sx={itemStyle} href="/logout">
+          <ListItemButton sx={itemStyle} component={NextLink} href="/logout">
             LOGOUT
           </ListItemButton>
         )}
