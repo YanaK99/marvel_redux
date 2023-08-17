@@ -9,8 +9,8 @@ export function Shield({ children }: Props) {
   const router = useRouter();
 
   const shieldConfig: NextShieldProps<
-    ['./logout', '/favourite'],
-    ['/', '/login', '/characters', '/register']
+    ['/logout', '/favourite'],
+    ['/home', '/login', '/characters', '/register']
   > = {
     router,
     isAuth: false,

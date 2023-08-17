@@ -26,6 +26,11 @@ const appBarStyle = {
 };
 
 function Navigation() {
+  const { logout: logoutUser } = useContext(ModalContext);
+
+  const logout = () => {
+    logoutUser?.();
+  };
   const { isAuthorized } = useContext(ModalContext);
   return (
     <AppBar sx={appBarStyle} position="fixed">
@@ -36,15 +41,29 @@ function Navigation() {
         <ListItemButton sx={itemStyle} component={NextLink} href="/characters">
           CHARACTERS
         </ListItemButton>
-        <ListItemButton sx={itemStyle} component={NextLink} href="/register">
-          REGISTER
-        </ListItemButton>
-        <ListItemButton sx={itemStyle} component={NextLink} href="/login">
-          LOGIN
-        </ListItemButton>
+        {!isAuthorized && (
+          <ListItemButton sx={itemStyle} component={NextLink} href="/register">
+            REGISTER
+          </ListItemButton>
+        )}
+        {!isAuthorized && (
+          <ListItemButton sx={itemStyle} component={NextLink} href="/login">
+            LOGIN
+          </ListItemButton>
+        )}
         {isAuthorized && (
-          <ListItemButton sx={itemStyle} component={NextLink} href="/logout">
+          <ListItemButton
+            sx={itemStyle}
+            component={NextLink}
+            href="/logout"
+            onClick={logout}
+          >
             LOGOUT
+          </ListItemButton>
+        )}
+        {isAuthorized && (
+          <ListItemButton sx={itemStyle} component={NextLink} href="/favourite">
+            FAVOURITE
           </ListItemButton>
         )}
       </List>

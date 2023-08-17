@@ -44,6 +44,7 @@ const SignInForm = ({ onFormSubmit }: SignInFormProps) => {
           control={control}
           render={({ field }) => (
             <TextField
+              color="secondary"
               {...field}
               label="Name"
               error={Boolean(errors.name)}
@@ -58,6 +59,7 @@ const SignInForm = ({ onFormSubmit }: SignInFormProps) => {
           control={control}
           render={({ field }) => (
             <TextField
+              color="secondary"
               {...field}
               label="Password"
               type="password"
@@ -69,7 +71,16 @@ const SignInForm = ({ onFormSubmit }: SignInFormProps) => {
           )}
         />
 
-        <Button variant="contained" type="submit">
+        <Button variant="contained" type="submit" sx={{
+          color:"#f2f2f2",
+          textAlign: 'center',
+          fontWeight: 'bold',
+          fontFamily: 'Modern No. 20',
+          backgroundColor: 'rgba(255,0,0,0.56)',
+          "&:hover": {
+            backgroundColor: 'rgba(108,25,25,0.86)',
+          }
+        }}>
           Login
         </Button>
       </Stack>

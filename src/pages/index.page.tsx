@@ -3,9 +3,5 @@ import Navigation from '@/components/Navigation/Navigation';
 import { ModalContextProvider } from '@/context/ModalContext';
 
 export default function Home() {
-  return (
-    <ModalContextProvider>
-      <Navigation />
-    </ModalContextProvider>
-  );
+  return <Navigation />;
 }

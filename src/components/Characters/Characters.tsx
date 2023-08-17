@@ -1,34 +1,67 @@
 import { ICharacter } from '@/types/models';
-import { useState } from 'react';
+import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
+import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import Image from 'next/image';
+import { useState } from 'react';
+import { Box, Typography } from '@mui/material';
 
 interface CharacterProps {
   character: ICharacter;
 }
 
 export function Characters({ character }: CharacterProps) {
-  const [details, setDetails] = useState(false);
+  const [isFilled, setIsFilled] = useState(false);
+
+  const handleIconClick = () => {
+    setIsFilled(!isFilled);
+  };
 
   return (
-    <div>
+    <Box>
       {character.thumbnail && (
         <Image
           src={`${character.thumbnail?.path}.${character.thumbnail?.extension}`}
           alt={character.name || 'cover'}
-          width="200"
-          height="200"
+          width="300"
+          height="300"
         />
       )}
-      <p>{character.name}</p>
-      <button onClick={() => setDetails((prev) => !prev)}>
-        {details ? 'Hide Details' : 'Show Details'}
-      </button>
-      {details && (
-        <div>
-          <p>{character.description}</p>
-        </div>
-      )}
-    </div>
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          padding: '10px 65px 0 0',
+          alignItems: 'center',
+        }}
+      >
+        <Typography
+          variant="h5"
+          sx={{
+            color: '#8a1212',
+            textAlign: 'center',
+            fontWeight: 'bold',
+            fontFamily: 'Modern No. 20',
+          }}
+        >
+          {character.name}
+        </Typography>
+        {isFilled ? (
+          <FavoriteRoundedIcon
+            onClick={handleIconClick}
+            sx={{
+              color: '#8a1212',
+            }}
+          />
+        ) : (
+          <FavoriteBorderRoundedIcon
+            onClick={handleIconClick}
+            sx={{
+              color: '#8a1212',
+            }}
+          />
+        )}
+      </Box>
+    </Box>
   );
 }
 

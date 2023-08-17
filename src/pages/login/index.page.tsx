@@ -8,7 +8,7 @@ import { SignInFormFieldsType } from '@/types/models/forms';
 
 import ModalContext from '@/context/ModalContext';
 
-import MarvelIcon from '@/assets/svg/Marvel.svg';
+import MarvelIcon from '@/assets/svg/marvel.svg';
 
 /**
  *
@@ -31,18 +31,25 @@ const LoginPage = () => {
       <Card sx={{ width: 400, borderRadius: 6 }}>
         <CardContent
           sx={{
-            backgroundColor: 'rgba(189,229,190,0.53)',
+            backgroundColor: 'rgba(22,55,104,0.53)',
             display: 'flex',
             flexDirection: 'column',
             alignItems: 'center',
+            padding: '20px'
           }}
         >
           <Stack>
-            <MarvelIcon />
+            <MarvelIcon  sx={{
+                width:'100',
+                height: '50',
+                objectFit:'cover'
+            }}/>
             <Typography
               variant="h4"
               mb={3}
+              mt={3}
               sx={{
+                color:"#f2f2f2",
                 textAlign: 'center',
                 fontWeight: 'bold',
                 fontFamily: 'Modern No. 20',
@@ -50,7 +57,7 @@ const LoginPage = () => {
             >
               Login
             </Typography>
-            <Typography variant="body1" mb={3}>
+            <Typography variant="body1" mb={3} textAlign="center">
               Welcome to your account!
             </Typography>
           </Stack>
