@@ -35,7 +35,7 @@ function Navigation() {
   return (
     <AppBar sx={appBarStyle} position="fixed">
       <List sx={listStyle}>
-        <ListItemButton sx={itemStyle} component={NextLink} href="/home">
+        <ListItemButton sx={itemStyle} component={NextLink} href="/">
           MAIN
         </ListItemButton>
         <ListItemButton sx={itemStyle} component={NextLink} href="/characters">
@@ -62,7 +62,11 @@ function Navigation() {
           </ListItemButton>
         )}
         {isAuthorized && (
-          <ListItemButton sx={itemStyle} component={NextLink} href="/favourite">
+          <ListItemButton
+            sx={itemStyle}
+            component={NextLink}
+            href="/favourites"
+          >
             FAVOURITE
           </ListItemButton>
         )}

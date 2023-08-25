@@ -34,6 +34,7 @@ axiosInstance.interceptors.response.use(
 // @ts-ignore
 axiosInstance.interceptors.request.use((config: AxiosRequestConfig) => {
   const params = {
+    ...config.params,
     ts,
     apikey: publicKey,
     hash,

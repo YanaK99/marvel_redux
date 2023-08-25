@@ -1,5 +1,7 @@
 import { useRouter } from 'next/router';
 import { NextShield, NextShieldProps } from 'next-shield';
+import { useContext } from 'react';
+import ModalContext from '@/context/ModalContext';
 
 interface Props {
   children: React.ReactNode;
@@ -7,18 +9,19 @@ interface Props {
 
 export function Shield({ children }: Props) {
   const router = useRouter();
+  const { isAuthorized } = useContext(ModalContext);
 
   const shieldConfig: NextShieldProps<
-    ['/logout', '/favourite'],
-    ['/home', '/login', '/characters', '/register']
+    ['/logout', '/favourites'],
+    ['/', '/login', '/register']
   > = {
     router,
-    isAuth: false,
+    isAuth: isAuthorized,
     isLoading: false,
     LoadingComponent: <p>Loading...</p>,
-    privateRoutes: ['/logout', '/favourite'],
-    publicRoutes: ['/home', '/login', '/characters', '/register'],
-    accessRoute: '/favourite',
+    privateRoutes: ['/logout', '/favourites'],
+    publicRoutes: ['/', '/login', '/register'],
+    accessRoute: '/favourites',
     loginRoute: '/login',
   };
 

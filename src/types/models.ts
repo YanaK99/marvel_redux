@@ -12,11 +12,19 @@ export interface ICharacter {
   series?: SeriesList;
 }
 
-export interface ICharacterApiData {
+export interface ILocalStorageCharacter
+  extends Pick<ICharacter, "id" | "name"> {
+  isFilled: boolean;
+  date: number;
+}
+
+export interface ICharactersApiData {
   data: {
     results: ICharacter[];
+    total: number;
   };
 }
+
 interface Url {
   type?: string;
   url?: string;
