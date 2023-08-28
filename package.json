@@ -1,5 +1,5 @@
 {
-  "name": "marvel",
+  "name": "marvel_redux",
   "version": "0.1.0",
   "private": true,
   "scripts": {
@@ -36,5 +36,20 @@
     "@typescript-eslint/eslint-plugin": "^6.2.1",
     "@typescript-eslint/parser": "^6.2.1",
     "prettier": "^3.0.1"
-  }
+  },
+  "description": "This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).",
+  "main": ".eslintrc.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/YanaK99/marvel_redux.git"
+  },
+  "keywords": [
+    "redux"
+  ],
+  "author": "Yana99",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/YanaK99/marvel_redux/issues"
+  },
+  "homepage": "https://github.com/YanaK99/marvel_redux#readme"
 }

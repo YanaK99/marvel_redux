@@ -1,5 +1,5 @@
-import HubIcon from '@mui/icons-material/Hub';
-import { Box, keyframes } from '@mui/material';
+import HubIcon from "@mui/icons-material/Hub";
+import { Box, keyframes } from "@mui/material";
 const Loader = () => {
   const spin = keyframes`
   from {
@@ -12,22 +12,22 @@ const Loader = () => {
   return (
     <Box
       sx={{
-        width: '100%',
+        width: "100%",
         left: 0,
-        height: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center',
-        position: 'fixed',
+        height: "100vh",
+        display: "flex",
+        justifyContent: "center",
+        alignItems: "center",
+        position: "fixed",
         zIndex: 1,
       }}
     >
       <HubIcon
         sx={{
-          width: '200px',
-          height: '200px',
+          width: "200px",
+          height: "200px",
           animation: `${spin} 3s linear infinite`,
-          color: 'darkgrey',
+          color: "darkgrey",
         }}
       />
     </Box>
