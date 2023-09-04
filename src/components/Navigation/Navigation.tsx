@@ -1,37 +1,44 @@
-import { AppBar, ListItemButton, List } from '@mui/material';
-import NextLink from 'next/link';
+import AppBar from "@mui/material/AppBar";
+import ListItemButton from "@mui/material/ListItemButton";
+import List from "@mui/material/List";
 
-import { useContext } from 'react';
-import ModalContext from '@/context/ModalContext';
+import NextLink from "next/link";
+
+import { useDispatch, useSelector } from "react-redux";
+
+import { isAuthorizedSelector } from "@/store/auth/auth_selectors";
+import { AppDispatch } from "@/store";
+import { authLogoutThunkAction } from "@/store/auth/thunk/logout_thunk";
 
 const listStyle = {
-  height: '200',
-  backgroundColor: 'rgba(0,0,0,0.8)',
-  display: 'flex',
-  justifyContent: 'space-between',
+  height: "200",
+  backgroundColor: "rgba(0,0,0,0.8)",
+  display: "flex",
+  justifyContent: "space-between",
 };
 
 const itemStyle = {
-  display: 'flex',
-  justifyContent: 'center',
-  backgroundColor: 'rgba(51,61,94,0.5)',
-  borderRadius: '10px',
-  maxWidth: '60%',
-  margin: '30px 50px 10px 50px',
-  border: '2px solid red',
+  display: "flex",
+  justifyContent: "center",
+  backgroundColor: "rgba(51,61,94,0.5)",
+  borderRadius: "10px",
+  maxWidth: "60%",
+  margin: "30px 50px 10px 50px",
+  border: "2px solid red",
 };
 
 const appBarStyle = {
-  zIndex: '10',
+  zIndex: "10",
 };
 
 function Navigation() {
-  const { logout: logoutUser } = useContext(ModalContext);
+  const dispatch = useDispatch<AppDispatch>();
 
   const logout = () => {
-    logoutUser?.();
+    dispatch(authLogoutThunkAction());
   };
-  const { isAuthorized } = useContext(ModalContext);
+
+  const isAuthorized = useSelector(isAuthorizedSelector);
   return (
     <AppBar sx={appBarStyle} position="fixed">
       <List sx={listStyle}>

@@ -1,10 +1,11 @@
-import * as React from 'react';
-import Pagination from '@mui/material/Pagination';
-import PaginationItem from '@mui/material/PaginationItem';
-import Stack from '@mui/material/Stack';
-import ArrowBackIcon from '@mui/icons-material/ArrowBack';
-import ArrowForwardIcon from '@mui/icons-material/ArrowForward';
-import { SxProps, Theme } from '@mui/material/styles';
+import * as React from "react";
+import Pagination from "@mui/material/Pagination";
+import PaginationItem from "@mui/material/PaginationItem";
+import Stack from "@mui/material/Stack";
+import ArrowBackIcon from "@mui/icons-material/ArrowBack";
+import ArrowForwardIcon from "@mui/icons-material/ArrowForward";
+// eslint-disable-next-line import/named
+import { SxProps, Theme } from "@mui/material/styles";
 
 interface CustomPaginationProps {
   changePage: (page: number) => void;

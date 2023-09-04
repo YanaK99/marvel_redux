@@ -1,109 +1,110 @@
-import React, { useEffect, useState } from 'react';
-import { useCharacters } from '@/hooks/useCharacters';
-import ErrorMessage from '@/components/ErrorMessage/ErrorMessage';
-import Loader from '@/components/Loader/Loader';
-import Character from '@/components/Character/Character';
-import Grid from '@mui/material/Grid';
-import Box from '@mui/material/Box';
-import { Autocomplete, TextField } from '@mui/material';
-import { getFavouritesFromLocalStorage } from '@/utils/storage';
-import { ILocalStorageCharacter } from '@/types/models';
-import Pagination from '@/components/Pagination/Pagination';
-import ArrowDropDownRoundedIcon from '@mui/icons-material/ArrowDropDownRounded';
-import ArrowDropUpRoundedIcon from '@mui/icons-material/ArrowDropUpRounded';
-const CharactersPage = () => {
-  const {
-    characters,
-    error,
-    loading,
-    changePage,
-    page,
-    pagesCount,
-    orderByDescending,
-    orderByAscending,
-    filterCharacters,
-    filterByName,
-  } = useCharacters();
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-  const nameCharacters = characters.map((character) => character.name);
-  const [localStorageCharacters, setLocalStorageCharacters] = useState<
-    ILocalStorageCharacter[]
-  >([]);
+import { ErrorMessage, Loader, CharactersTable } from "@/components";
+
+import Autocomplete from "@mui/material/Autocomplete";
+import TextField from "@mui/material/TextField";
+import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
+import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
+import Stack from "@mui/material/Stack";
+
+import {
+  fetchHeroesSelector,
+  heroesErrorSelector,
+  heroesFilterByNameSelector,
+  heroesLoadingSelector,
+  heroesNamesSelector,
+  heroesPagesCountSelector,
+  heroesPageSelector,
+} from "@/store/heroes/heroes_selectors";
+import { setPageThunkAction } from "@/store/heroes/thunk/setPage_thunk";
+import { AppDispatch } from "@/store";
+import { orderByNameThunkAction } from "@/store/heroes/thunk/orderByName_thunk";
+import { favouritesSelector } from "@/store/favourites/favoutite_selectors";
+import { getFavouritesThunkAction } from "@/store/favourites/thunk/getFavourites_thunk";
+import { fetchHeroesThunkAction } from "@/store/heroes/thunk/fetchHeroes_thunk";
+import { heroesNamesThunkAction } from "@/store/heroes/thunk/heroesNames_thunk";
+import { filterHeroesThunkAction } from "@/store/heroes/thunk/filterHeroes_thunk";
+
+const CharactersPage = () => {
+  const dispatch = useDispatch<AppDispatch>();
+
+  const characters = useSelector(fetchHeroesSelector);
+  const loading = useSelector(heroesLoadingSelector);
+  const error = useSelector(heroesErrorSelector);
+  const filterByName = useSelector(heroesFilterByNameSelector);
+  const page = useSelector(heroesPageSelector);
+  const pagesCount = useSelector(heroesPagesCountSelector);
+  const nameCharacters = useSelector(heroesNamesSelector);
+
+  const submitFilterByName = (value: string | null) => {
+    dispatch(filterHeroesThunkAction(value || ""));
+  };
+
+  const changePage = (page: number) => {
+    dispatch(setPageThunkAction(page));
+  };
+
+  const filterCharacters = (value: string) => {
+    dispatch(heroesNamesThunkAction(value));
+  };
+
+  const orderByDescending = () => {
+    dispatch(orderByNameThunkAction("-name"));
+  };
+
+  const orderByAscending = () => {
+    dispatch(orderByNameThunkAction("name"));
+  };
+
+  const favouriteCharacters = useSelector(favouritesSelector);
+
   useEffect(() => {
-    setLocalStorageCharacters(getFavouritesFromLocalStorage());
-  }, []);
+    dispatch(fetchHeroesThunkAction());
+    dispatch(getFavouritesThunkAction());
+  }, [dispatch]);
 
   if (loading) return <Loader />;
   if (error) return <ErrorMessage error={error} />;
 
   return (
-    <Box
-      sx={{
-        marginTop: '50px',
-      }}
-    >
-      <Box
-        sx={{
-          display: 'flex',
-          justifyContent: 'space-between',
-        }}
-      >
+    <Stack marginTop="50px">
+      <Stack justifyContent="space-between" flexDirection="row">
         <Autocomplete
           disablePortal
           id="combo-box-demo"
-          options={nameCharacters}
+          options={nameCharacters || []}
           sx={{
             width: 400,
-            marginBottom: '50px',
+            marginBottom: "50px",
           }}
           value={filterByName}
-          onChange={(_, value) => filterCharacters(value ?? '')}
+          onChange={(_, value) => submitFilterByName(value)}
+          onInput={(event) => {
+            filterCharacters(event.target.value);
+          }}
           renderInput={(params) => <TextField {...params} label="Character" />}
         />
-        <Box>
+        <Stack flexDirection={"row"}>
           <ArrowDropDownRoundedIcon
             onClick={orderByDescending}
             fontSize="large"
-            sx={{ color: 'darkgrey' }}
+            sx={{ color: "info" }}
           />
           <ArrowDropUpRoundedIcon
             onClick={orderByAscending}
             fontSize="large"
-            sx={{ color: 'darkgrey' }}
+            sx={{ color: "info" }}
           />
-        </Box>
-      </Box>
-      <Grid container spacing={3}>
-        {characters.map((character) => (
-          <Grid
-            sx={{ display: ' flex', justifyContent: 'center' }}
-            item
-            key={character.id}
-            xs={12}
-            sm={6}
-            md={4}
-          >
-            <Character
-              character={character}
-              isCharacterFilled={localStorageCharacters.some(
-                (item) => character.id === item.id
-              )}
-            />
-          </Grid>
-        ))}
-      </Grid>
-      <Pagination
-        changePage={changePage}
-        page={page}
-        pagesCount={pagesCount}
-        sx={{
-          marginTop: '20px',
-          display: 'flex',
-          justifyContent: 'center',
-          marginBottom: '20px',
-        }}
+        </Stack>
+      </Stack>
+      <CharactersTable
+        characters={characters}
+        favouritesCharacters={favouriteCharacters}
+        pageConfig={{ page, pagesCount, changePage }}
       />
-    </Box>
+    </Stack>
   );
 };
 

@@ -12,11 +12,13 @@ export interface ICharacter {
   series?: SeriesList;
 }
 
-export interface ILocalStorageCharacter
-  extends Pick<ICharacter, "id" | "name"> {
+export interface ILocalStorageCharacter extends ICardCharacter {
   isFilled: boolean;
   date: number;
 }
+
+export interface ICardCharacter
+  extends Pick<ICharacter, "thumbnail" | "name" | "id"> {}
 
 export interface ICharactersApiData {
   data: {

@@ -1,14 +1,14 @@
-import { useContext } from 'react';
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Typography from "@mui/material/Typography";
+import Stack from "@mui/material/Stack";
 
-import { Card, CardContent, Typography, Stack } from '@mui/material';
+import { SignInForm } from "./components";
 
-import { SignInForm } from './components';
-
-import { SignInFormFieldsType } from '@/types/models/forms';
-
-import ModalContext from '@/context/ModalContext';
-
-import MarvelIcon from '@/assets/svg/marvel.svg';
+import MarvelIcon from "@/assets/svg/marvel.svg";
+import { useDispatch } from "react-redux";
+import { authLoginThunkAction } from "@/store/auth/thunk/login_thunk";
+import { AppDispatch } from "@/store";
 
 /**
  *
@@ -17,13 +17,10 @@ import MarvelIcon from '@/assets/svg/marvel.svg';
  * @param root0.isAuthorized
  */
 const LoginPage = () => {
-  const { login } = useContext(ModalContext);
+  const dispatch = useDispatch<AppDispatch>();
 
-  const handleSignIn = (data: SignInFormFieldsType) => {
-    if (login) {
-      login();
-    }
-    console.log('data', data);
+  const handleSignIn = () => {
+    dispatch(authLoginThunkAction());
   };
 
   return (
@@ -31,28 +28,30 @@ const LoginPage = () => {
       <Card sx={{ width: 400, borderRadius: 6 }}>
         <CardContent
           sx={{
-            backgroundColor: 'rgba(22,55,104,0.53)',
-            display: 'flex',
-            flexDirection: 'column',
-            alignItems: 'center',
-            padding: '20px'
+            backgroundColor: "rgba(22,55,104,0.53)",
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "center",
+            padding: "20px",
           }}
         >
           <Stack>
-            <MarvelIcon  sx={{
-                width:'100',
-                height: '50',
-                objectFit:'cover'
-            }}/>
+            <MarvelIcon
+              sx={{
+                width: "100",
+                height: "50",
+                objectFit: "cover",
+              }}
+            />
             <Typography
               variant="h4"
               mb={3}
               mt={3}
               sx={{
-                color:"#f2f2f2",
-                textAlign: 'center',
-                fontWeight: 'bold',
-                fontFamily: 'Modern No. 20',
+                color: "#f2f2f2",
+                textAlign: "center",
+                fontWeight: "bold",
+                fontFamily: "Modern No. 20",
               }}
             >
               Login

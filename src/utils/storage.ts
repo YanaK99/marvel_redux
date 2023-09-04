@@ -2,9 +2,13 @@ import { ICharacter, ILocalStorageCharacter } from "@/types/models";
 
 const TOKEN = "token";
 
-export const addFavouriteToLocalStorage = ({ name, id }: ICharacter) => {
+export const addFavouriteToLocalStorage = ({
+  name,
+  id,
+  thumbnail,
+}: ICharacter) => {
   const data: ILocalStorageCharacter[] = getFavouritesFromLocalStorage();
-  data.push({ id, name, isFilled: true, date: Date.now() });
+  data.push({ id, name, isFilled: true, date: Date.now(), thumbnail });
 
   localStorage.setItem(TOKEN, JSON.stringify(data));
 };

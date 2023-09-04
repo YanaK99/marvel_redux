@@ -1,7 +1,13 @@
-import { Card, CardContent, Stack, Typography } from "@mui/material";
-import MarvelIcon from "@/assets/svg/marvel.svg";
-import { RegisterForm } from "./components";
 import { useRouter } from "next/router";
+
+import Card from "@mui/material/Card";
+import CardContent from "@mui/material/CardContent";
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
+
+import MarvelIcon from "@/assets/svg/marvel.svg";
+
+import { RegisterForm } from "./components";
 
 const RegisterPage = () => {
   const router = useRouter();

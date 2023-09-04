@@ -1,4 +1,5 @@
-import React from 'react';
+import Stack from "@mui/material/Stack";
+import Typography from "@mui/material/Typography";
 
 interface ErrorMessageProps {
   error: string;
@@ -6,9 +7,9 @@ interface ErrorMessageProps {
 
 const ErrorMessage = ({ error }: ErrorMessageProps) => {
   return (
-    <div>
-      <p>{error}</p>
-    </div>
+    <Stack>
+      <Typography>{error}</Typography>
+    </Stack>
   );
 };
 

@@ -1,14 +1,16 @@
-import { Button, TextField, Stack } from '@mui/material';
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
+import Stack from "@mui/material/Stack";
 
-import { Controller, useForm } from 'react-hook-form';
-import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from 'yup';
+import { Controller, useForm } from "react-hook-form";
+import { yupResolver } from "@hookform/resolvers/yup";
+import * as yup from "yup";
 
-import { SignInFormFieldsType } from '@/types/models/forms';
+import { SignInFormFieldsType } from "@/types/models/forms";
 
 const schema = yup.object().shape({
-  name: yup.string().trim().required('Name is a required field'),
-  password: yup.string().trim().required('Password field is required'),
+  name: yup.string().trim().required("Name is a required field"),
+  password: yup.string().trim().required("Password field is required"),
 });
 
 type FormInputs = SignInFormFieldsType;
@@ -19,8 +21,8 @@ type SignInFormProps = {
 
 const SignInForm = ({ onFormSubmit }: SignInFormProps) => {
   const defaultValues: FormInputs = {
-    name: '',
-    password: '',
+    name: "",
+    password: "",
   };
 
   const {
@@ -71,16 +73,20 @@ const SignInForm = ({ onFormSubmit }: SignInFormProps) => {
           )}
         />
 
-        <Button variant="contained" type="submit" sx={{
-          color:"#f2f2f2",
-          textAlign: 'center',
-          fontWeight: 'bold',
-          fontFamily: 'Modern No. 20',
-          backgroundColor: 'rgba(255,0,0,0.56)',
-          "&:hover": {
-            backgroundColor: 'rgba(108,25,25,0.86)',
-          }
-        }}>
+        <Button
+          variant="contained"
+          type="submit"
+          sx={{
+            color: "#f2f2f2",
+            textAlign: "center",
+            fontWeight: "bold",
+            fontFamily: "Modern No. 20",
+            backgroundColor: "primary",
+            "&:hover": {
+              backgroundColor: "info",
+            },
+          }}
+        >
           Login
         </Button>
       </Stack>

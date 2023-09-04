@@ -1,81 +1,58 @@
-import React, { useEffect, useState } from "react";
-import { ILocalStorageCharacter } from "@/types/models";
-import { getFavouritesFromLocalStorage } from "@/utils/storage";
-import { List, ListItem } from "@mui/material";
-import ElectricBoltIcon from "@mui/icons-material/ElectricBolt";
-import Box from "@mui/material/Box";
+import { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
+
+import { CharactersTable } from "@/components";
+
+import Stack from "@mui/material/Stack";
 import ArrowDropDownRoundedIcon from "@mui/icons-material/ArrowDropDownRounded";
 import ArrowDropUpRoundedIcon from "@mui/icons-material/ArrowDropUpRounded";
 
-const Favourite = () => {
-  const [localStorageCharacters, setLocalStorageCharacters] = useState<
-    ILocalStorageCharacter[]
-  >([]);
-  useEffect(() => {
-    setLocalStorageCharacters(getFavouritesFromLocalStorage());
-  }, []);
+import { favouritesSelector } from "@/store/favourites/favoutite_selectors";
+import { favouriteActions } from "@/store/favourites/actions";
+import { getFavouritesThunkAction } from "@/store/favourites/thunk/getFavourites_thunk";
+import { AppDispatch } from "@/store";
 
-  const orderCharectersByDate = (order: "asc" | "desc") => {
-    const dateDescending = [...localStorageCharacters].sort((a, b) =>
-      order === "asc" ? a.date - b.date : b.date - a.date,
-    );
-    setLocalStorageCharacters(dateDescending);
-  };
+const Favourite = () => {
+  const favouriteCharacters = useSelector(favouritesSelector);
+  console.log(favouriteCharacters);
+
+  const dispatch = useDispatch<AppDispatch>();
 
   const orderByDescending = () => {
-    orderCharectersByDate("desc");
+    dispatch(favouriteActions.order("desc"));
   };
 
   const orderByAscending = () => {
-    orderCharectersByDate("asc");
+    dispatch(favouriteActions.order("asc"));
   };
 
+  useEffect(() => {
+    dispatch(getFavouritesThunkAction());
+  }, [dispatch]);
+
   return (
-    <Box
-      sx={{
-        display: "flex",
-        flexDirection: "row-reverse",
-        justifyContent: "space-between",
-      }}
-    >
-      <Box
-        sx={{
-          marginTop: "50px",
-        }}
+    <Stack marginTop={"50px"}>
+      <Stack
+        flexDirection={"row"}
+        marginBottom={"20px"}
+        justifyContent={"flex-end"}
       >
         <ArrowDropDownRoundedIcon
           onClick={orderByDescending}
           fontSize="large"
-          sx={{ color: "darkgrey" }}
+          sx={{ color: "info" }}
         />
         <ArrowDropUpRoundedIcon
           onClick={orderByAscending}
           fontSize="large"
-          sx={{ color: "darkgrey" }}
+          sx={{ color: "info" }}
         />
-      </Box>
-      <List
-        sx={{
-          marginTop: "50px",
-        }}
-      >
-        {localStorageCharacters.map(({ id, name }) => (
-          <ListItem
-            sx={{
-              color: "#0b2154",
-              textAlign: "center",
-              fontSize: "25px",
-              fontWeight: "bold",
-              fontFamily: "Modern No. 20",
-            }}
-            key={id}
-          >
-            <ElectricBoltIcon sx={{ color: "#8a1212" }} key={id} />
-            {name}
-          </ListItem>
-        ))}
-      </List>
-    </Box>
+      </Stack>
+      <CharactersTable
+        characters={favouriteCharacters}
+        favouritesCharacters={favouriteCharacters}
+      />
+    </Stack>
   );
 };
 

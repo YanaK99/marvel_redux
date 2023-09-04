@@ -1,5 +1,6 @@
 import HubIcon from "@mui/icons-material/Hub";
-import { Box, keyframes } from "@mui/material";
+import { keyframes } from "@mui/material";
+import Stack from "@mui/material/Stack";
 const Loader = () => {
   const spin = keyframes`
   from {
@@ -9,28 +10,26 @@ const Loader = () => {
     transform: rotate(360deg);
   }
 `;
+
   return (
-    <Box
-      sx={{
-        width: "100%",
-        left: 0,
-        height: "100vh",
-        display: "flex",
-        justifyContent: "center",
-        alignItems: "center",
-        position: "fixed",
-        zIndex: 1,
-      }}
+    <Stack
+      alignItems="center"
+      justifyContent="center"
+      width="100%"
+      left="0"
+      height="100vh"
+      position="fixed"
+      zIndex="1"
     >
       <HubIcon
+        color="info"
         sx={{
           width: "200px",
           height: "200px",
           animation: `${spin} 3s linear infinite`,
-          color: "darkgrey",
         }}
       />
-    </Box>
+    </Stack>
   );
 };
 

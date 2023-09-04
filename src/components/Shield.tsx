@@ -1,8 +1,9 @@
 import { useRouter } from "next/router";
 // eslint-disable-next-line import/named
 import { NextShield, NextShieldProps } from "next-shield";
-import React, { useContext } from "react";
-import ModalContext from "@/context/ModalContext";
+import { useSelector } from "react-redux";
+
+import { isAuthorizedSelector } from "@/store/auth/auth_selectors";
 
 interface Props {
   children: React.ReactNode;
@@ -10,7 +11,7 @@ interface Props {
 
 export function Shield({ children }: Props) {
   const router = useRouter();
-  const { isAuthorized } = useContext(ModalContext);
+  const isAuthorized = useSelector(isAuthorizedSelector);
 
   const shieldConfig: NextShieldProps<
     ["/logout", "/favourites"],

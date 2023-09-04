@@ -1,7 +1,10 @@
-import React from "react";
-import { Button, Stack, TextField } from "@mui/material";
-import { Controller, useForm } from "react-hook-form";
 import * as yup from "yup";
+
+import Button from "@mui/material/Button";
+import Stack from "@mui/material/Stack";
+import TextField from "@mui/material/TextField";
+
+import { Controller, useForm } from "react-hook-form";
 import { RegisterFormFieldsType } from "@/types/models/forms";
 import { yupResolver } from "@hookform/resolvers/yup";
 
@@ -108,7 +111,6 @@ const RegisterForm = ({ onFormSubmit }: RegisterFormProps) => {
             />
           )}
         />
-
         <Button
           variant="contained"
           type="submit"
@@ -117,9 +119,9 @@ const RegisterForm = ({ onFormSubmit }: RegisterFormProps) => {
             textAlign: "center",
             fontWeight: "bold",
             fontFamily: "Modern No. 20",
-            backgroundColor: "rgba(255,0,0,0.56)",
+            backgroundColor: "main",
             "&:hover": {
-              backgroundColor: "rgba(108,25,25,0.86)",
+              backgroundColor: "info",
             },
           }}
         >

@@ -1,21 +1,28 @@
-import type { NextPage } from 'next';
-import type { AppProps } from 'next/app';
+import type { NextPage } from "next";
+import type { AppProps } from "next/app";
+import { Provider } from "react-redux";
 
-import { Shield } from '@/components/Shield';
-import Navigation from '../components/Navigation/Navigation';
-import { Container } from '@mui/material';
-import { ModalContextProvider } from '@/context/ModalContext';
+import store from "@/store";
+import { Shield } from "@/components/Shield";
+
+import { Navigation } from "../components";
+
+import Container from "@mui/material/Container";
+import { ThemeProvider } from "@mui/material/styles";
+import { theme } from "@/theme/globalThemePalette";
 
 const MyApp: NextPage<AppProps> = ({ Component, pageProps }) => {
   return (
-    <ModalContextProvider>
-      <Shield>
-        <Navigation />
-        <Container sx={{ margin: '0 auto', pt: 8 }}>
-          <Component {...pageProps} />
-        </Container>
-      </Shield>
-    </ModalContextProvider>
+    <Provider store={store}>
+      <ThemeProvider theme={theme}>
+        <Shield>
+          <Navigation />
+          <Container sx={{ margin: "0 auto", pt: 8 }}>
+            <Component {...pageProps} />
+          </Container>
+        </Shield>
+      </ThemeProvider>
+    </Provider>
   );
 };
 
